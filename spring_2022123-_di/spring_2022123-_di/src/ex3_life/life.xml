@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- <bean id="dd" class="ex3_life.LifeBean"></bean> 이와 같은 경우 기본생성자를 호출하는 
+		것이기 때문에 인자값 있는 생성자만 있는 LifeBean은 오류가 남 -->
+
+	<bean id="life" class="ex3_life.LifeBean" init-method="init"
+		destroy-method="destroy">
+		<constructor-arg value="김길동" />
+		<property name="name" value="빅대디" />
+	</bean>
+
+</beans>

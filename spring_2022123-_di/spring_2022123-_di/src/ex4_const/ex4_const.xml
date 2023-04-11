@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="ex1" class="ex4_const.Ex1_Const">
+		<constructor-arg value="10000" />
+	</bean>
+	
+	<!-- type=int 안 적으면 String 기본 -->
+	<!-- 인자값 두개 받는 경우 아래와 같이 설정 -->
+	<bean id="ex2" class="ex4_const.Ex1_Const">
+		<constructor-arg value="10000" type="int" />
+		<constructor-arg value="테스트"/>
+	</bean>
+
+</beans>

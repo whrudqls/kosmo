@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="today" class="ex1.LocalToday" scope="prototype">
+		<property name="loc" value="동작구" />
+		<property name="name" value="김연경" />
+	</bean>
+
+	<!-- 싱글톤 해체: scope=”prototype” = new 생성 -->
+	<!-- 싱글톤 쓰는 이유: 요청이 왔을 때 getBean은 서비스에서 제공한다. service가 붙는 곳이 서블릿이고, 이 서블릿은 
+		스레드로 관리되기 때문에 getBean은 반드시 싱글톤(특히 동기화)으로 관리가 되어야 한다. 그렇기 때문에 bean은 기본값을 싱글톤으로 
+		설정해주는 것. 하지만 싱글톤을 해체해야 할 때가 있다. getBean이 다시 들어왔을 때 새로 객체를 생성해야 하는 상황이라면 scope="prototype"을 
+		주면 된다. (자주 사용되진 않음) ex) List<DTO> while(true){ DTO vo = new DTO(); re.set~(); 
+		re.add(vo); } => 이와 같은 경우 DTO가 똑같게 됨 -->
+
+	<!-- * 많이 사용되지는 않지만 면접에서 자주 질문됨 lazy-init="true" getBean으로 호출했을 때만 생성 scope=”prototype” -->
+	
+	<bean id="lazy" class="ex1.LazyBean" lazy-init="true">
+		<property name="msg" value="안뇽하세여" />
+	</bean>
+
+</beans>

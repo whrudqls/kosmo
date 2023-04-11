@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="map" class="prac_1231.Const_Map">
+		<constructor-arg value="안녕하세요" />
+		<constructor-arg value="집에 갑니다!" />
+	</bean>
+
+	<bean id="map2" class="prac_1231.Const_Map2">
+		<constructor-arg>
+			<map>
+				<entry key="안녕하세요~" value="저는 집에 갑니다!" />
+				<entry key="안녕히계세요!" value="새해 복 많이 받으세요!" />
+			</map>
+		</constructor-arg>
+	</bean>
+
+</beans>
