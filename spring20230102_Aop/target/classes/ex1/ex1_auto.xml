@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	<!-- @AutoWired,@Resource 자동 빈 묶기 관련 어노테이션을 가진 빈 안에서 어노테이션이 인식 되도록 설정하는 
+		속성 -->
+	<context:annotation-config />
+	<bean id="msg1" class="java.lang.String">
+		<qualifier value="kosmo" />
+		<constructor-arg value="오늘은 2023년 1월 2일 입니다." />
+	</bean>
+	<!-- 이름이 달라도 알아서 bytype으로 찾아준다 하지만 이름이 다른게 2개 이상이면 오류가 뜬다 타입도 여러개고 네임도 안맞으니 
+		컴터가 이해를 못함 멍충함 -->
+	<bean id="msg2" class="java.lang.String">
+		<constructor-arg value="오늘은 날씨가 너무 좋습니다!!!" />
+	</bean>
+
+	<bean id="auto1" class="ex1.Ex1_AutoWired">
+		<!--<property name="msg" ref="msg" /> -->
+	</bean>
+</beans>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	
+
+	<context:annotation-config />
+	<bean id="mypublic" class="ex5.MyPublic"/>
+	
+	<!-- Advice 공통 기능 코드(보안,로깅,트랜잭션) -->
+	<bean id="checkAdvice" class="ex4.CheckAdvice" />
+	<bean id="afterAdvice" class="ex4.NmaeReturnAdvice" />
+	<bean id="afterthrowadvice" class="ex4.AfterThrowAdvice" />	
+	<bean id="today" class="ex5.TodayBeforeAdvice"/>
+	
+
+	<!-- aop:config => ProxyFactoryBean 의 역할 :  해당되는지 검사 확인 -->
+	<!-- aspect(advisor) = pointcut + advice -->
+	<aop:config>
+
+		<aop:aspect id="time" ref="checkAdvice">
+			<aop:pointcut expression="execution(* ex4.*.first*(..))"	id="firstP" />
+			<aop:around method="checkTime" pointcut-ref="firstP" />
+		</aop:aspect>
+
+		<!-- returning="ret" : 속성과 인자로 선언한 변수 명이 동일해야 함 -->
+		<aop:aspect id="afterAdvice" ref="afterAdvice">
+			<aop:pointcut expression="execution(* ex4.DaoImple.second(..))" id="secondP" />
+			<aop:after-returning method="myReturnMethod" pointcut-ref="secondP" returning="ret" />
+		</aop:aspect>
+		
+		<aop:aspect id="afterthrowadvice" ref="afterthrowadvice">
+			<aop:pointcut expression="execution(* ex4.DaoImple.third(..))" id="thridP"/>
+			<aop:after-throwing method="commThrow" pointcut-ref="thridP" throwing="ew"/>
+		</aop:aspect>
+				
+		<aop:aspect id="public" ref="today">
+			<aop:pointcut expression="execution(* ex4.DaoImple.*(..))" id="todayP"/>
+			<aop:before method="todayBefore" pointcut-ref="todayP" />
+		</aop:aspect>
+			
+
+	</aop:config>
+	<!-- Around-매서드 인자값(joinpoint 생략 불가능) -->
+	<!-- Target -->
+	<bean id="dao" class="ex4.DaoImple" />
+</beans>
